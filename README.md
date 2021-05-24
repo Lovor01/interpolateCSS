@@ -44,8 +44,8 @@ interpolateCSS([
 **yValues**: array of values which are boundary values of property at points defined by xBreakpoints. It must be sorted in same order as xBreakpoints It can also be single number if xBreakpoints are not defined, in that case, property specified by xDefinition is multiplied by that number  
 **xDefinition**??: object which defines element and property that is observed for change and serves as source for calculating property above  
   {  
-  **element**: source element  
-  **property**: source property  
+  **element**: source element, it can also be special keyword ''self'', which means the same element from above definition  
+  **property**: source property   
   }  
 **extrapolateMin**: extrapolate property above greatest breakpoint  
 **extrapolateMax**: extrapolate property below smallest breakpoint
