@@ -1,4 +1,8 @@
-# interpolateCSS - a tiny library with no dependencies
+# interpolateCSS - a solution for fluid web design
+This library does not use dependencies (like jQuery).
+
+## Compatibility
+Modern browsers (Chrome, Firefox, Edge). Some functionality (observers) will not work on Internet Explorer, library is not tested on it. It may work in a limited amount in IE10+.
 
 ## Why?
 Some fluid design neccessities like changing font size depending on window width are (still) cumbersome to achieve with plain CSS, while other things are impossible, like changing one property related to changes in other properties. This library aims to mitigate those problems.
