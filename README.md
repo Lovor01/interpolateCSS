@@ -6,9 +6,6 @@ Some fluid design neccessities like changing font size depending on window width
 ## What?
 Interpolation of CSS property from one value to another in relation to change of another CSS property (including window width and height and properties of the same element)
 
-## Is it performant?
-Yes, library is small and it uses requestAnimationFrame and observers to achieve speed. Some necessary calculations are done once when initializing library and saved in memory for optimal performance
-
 ## How?
 Library is initialized through call to interpolateCSS initializer, passing the config object which defines which properties of which elements are to be changed and depending on what:
 ```
@@ -48,4 +45,7 @@ interpolateCSS([
   **property**: source property   
   }  
 **extrapolateMin**: extrapolate property above greatest breakpoint  
-**extrapolateMax**: extrapolate property below smallest breakpoint
+**extrapolateMax**: extrapolate property below smallest breakpoint  
+
+## Is it performant?
+Yes, library is small and it uses requestAnimationFrame and observers to achieve speed. Some necessary calculations are done once when initializing library and saved in memory for optimal performance
