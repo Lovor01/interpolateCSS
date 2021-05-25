@@ -48,4 +48,4 @@ interpolateCSS([
 **extrapolateMax**: extrapolate property below smallest breakpoint  
 
 ## Is it performant?
-Yes, library is small and it uses requestAnimationFrame and observers to achieve speed. Some necessary calculations are done once when initializing library and saved in memory for optimal performance
+Yes, library is small and it uses window.requestAnimationFrame and observers to achieve speed. Some necessary calculations are done once when initializing library and saved in memory for optimal performance
