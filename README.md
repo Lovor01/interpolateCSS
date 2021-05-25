@@ -8,8 +8,16 @@ Interpolation of CSS property from one value to another in relation to change of
 
 ## How?
 Library is initialized through call to interpolateCSS initializer, passing the config object which defines which properties of which elements are to be changed and depending on what:
-```
+```javascript
 interpolateCSS([
+	{
+		element: '.wp-block-makeiteasy-about-us .circle-div',
+		property: "width",
+		unit: 'px',
+		yValues: [180, 220],
+		xBreakpoints: [768, 1680],
+		extrapolateMax: true
+	},
 	{
 		element: '.mie-thumb-image-container .wp-block-embed iframe',
 		property: "height",
@@ -19,14 +27,6 @@ interpolateCSS([
 			element: 'self',
 			property: 'width'
 		},
-	},
-	{
-		element: '.wp-block-makeiteasy-about-us .circle-div',
-		property: "width",
-		unit: 'px',
-		yValues: [180, 220],
-		xBreakpoints: [768, 1680],
-		extrapolateMax: true
 	},
 ]);
 ```
