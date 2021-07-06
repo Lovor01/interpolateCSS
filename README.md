@@ -43,21 +43,21 @@ From this example we see that, it is easy to achieve:
 However, possibilities are greater than just for those two examples.
 
 ## Config object syntax:
-(?? means optional)
+(?? means optional - xDefinition?? means xDefinition property in config object is optional)
 
 **element**: DOM element or string selector with the same syntax as in [Document.querySelector()](https://developer.mozilla.org/en-US/docs/Web/API/Document/querySelector)  
-**property**: property of element above to change  
-**unit**: unit of property to change, like e.g. "px"  
-**xBreakpoints**??: array of breakpoints between which property is interpolated, array must be sorted  
-**yValues**: array of values which are boundary values of property at points defined by xBreakpoints. It must be sorted in same order as xBreakpoints It can also be single number if xBreakpoints are not defined, in that case, property specified by xDefinition is multiplied by that number  
-**xDefinition**??: object which defines element and property that is observed for change and serves as source for calculating property above  
+- **property**: property of element above to change  
+- **unit**: unit of property to change, like e.g. "px"  
+- **xBreakpoints**??: array of breakpoints between which property is interpolated, array must be sorted  
+- **yValues**: array of values which are boundary values of property at points defined by xBreakpoints. It must be sorted in same order as xBreakpoints It can also be single number if xBreakpoints are not defined, in that case, property specified by xDefinition is multiplied by that number  
+- **xDefinition**??: object which defines element and property that is observed for change and serves as source for calculating property above  
   {  
-  **element**: source element, it can also be special keyword ''self'', which means the same element from above definition  
-  **property**: source property   
+  - **element**: source element, it can also be special keyword ''self'', which means the same element from above definition  
+  - **property**: source property   
   }  
   If not specified, default is *width* property of *window*.
-**extrapolateMin**: extrapolate property above greatest breakpoint  
-**extrapolateMax**: extrapolate property below smallest breakpoint  
+- **extrapolateMin**: extrapolate property above greatest breakpoint  
+- **extrapolateMax**: extrapolate property below smallest breakpoint  
 
 ## Is it performant?
 Yes, library is small and it uses *resize* event together with window.requestAnimationFrame and observers to achieve speed. Some necessary calculations are done once when initializing library and saved in memory for optimal performance
