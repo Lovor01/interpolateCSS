@@ -10,6 +10,14 @@ Some fluid design neccessities like changing font size depending on window width
 ## What?
 Interpolation of CSS property from one value to another in relation to change of another CSS property (including window width and height and properties of the same element)
 
+## Which?
+Which problems are solved by using this library? To name a few:
+- font scaling dependent on screen width or height, or other elements width or height or even other properties like font size of another element
+- simple solution to fixed aspect ratio of HTML Element
+- responsive circle or ellipse or ellipsoid elements are very easy to create
+- establishing automatic (set and forget) relation of css property of one element to property of other element or even another property of same element
+- linear interpolation of property between given values for breakpoint values of related property (i.e. if font size 16px is given for window width of 768px and font size 24px is given for window width of 2500px, library will automatically adjust font sizes for all window widths between. It could even extrapolate and multiple breakpoints could be given)
+
 ## How?
 Library is initialized through call to interpolateCSS initializer, passing the config object which defines which properties of which elements are to be changed and depending on what:
 ```javascript
