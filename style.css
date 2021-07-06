@@ -1,1 +1,12 @@
+h1 {
+  text-align: center;
+}
 
+.scriptname {
+  text-decoration: underline dotted;
+}
+
+main {
+  margin: 2em 10ch;
+  background: f2f2f2;
+}
