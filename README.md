@@ -68,4 +68,4 @@ However, possibilities are greater than just for those two examples.
 - **extrapolateMax**: extrapolate property below smallest breakpoint  
 
 ## Is it performant?
-Yes, library is small and it uses *resize* event together with window.requestAnimationFrame to achieve speed. Some necessary calculations are done once when initializing library and saved in memory for optimal performance. Observers are in plan for future release.
+Yes, library is small and it uses *resize* event of `window` together with `window.requestAnimationFrame` to achieve speed. Some necessary calculations are done once when initializing library and saved in memory for optimal performance. Observers are in plan for future release.
