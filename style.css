@@ -1,4 +1,8 @@
-h1 {
+body {
+  background: #ddffdc;
+}
+
+h1, h2, h3 {
   text-align: center;
 }
 
@@ -8,5 +12,21 @@ h1 {
 
 main {
   margin: 2em 10ch;
-  background: f2f2f2;
+  background: #b2d1b1;
+  border-radius: 1em;
+  padding: 1em 2em;
+}
+
+#demo {
+  display: flex;
+  flex-flow: wrap;
+}
+
+#demo > * {
+  margin: 2ch;
+}
+
+.aspect {
+  width: 30%;
+  background: #c8c7f6;
 }
