@@ -45,7 +45,7 @@ However, possibilities are greater than just for those two examples.
 ## Config object syntax:
 (?? means optional - xDefinition?? means xDefinition property in config object is optional)
 
-**element**: DOM element or string selector with the same syntax as in [Document.querySelector()](https://developer.mozilla.org/en-US/docs/Web/API/Document/querySelector)  
+**element**: DOM element(s) or string selector with the same syntax as in [Document.querySelector()](https://developer.mozilla.org/en-US/docs/Web/API/Document/querySelector)  
 - **property**: property of element above to change  
 - **unit**: unit of property to change, like e.g. "px"  
 - **xBreakpoints**??: array of breakpoints between which property is interpolated, array must be sorted  
