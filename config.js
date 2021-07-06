@@ -12,7 +12,7 @@ interpolateCSS([
 		unit: 'px',
 		yValues: 0.75,
 		xDefinition: {
-			element: 'main h2',
+			element: document.querySelector('main h2'),
 			property: 'font-size' 
 		}
 	},
@@ -20,9 +20,9 @@ interpolateCSS([
 		element: '.box-fontx2',
 		property: "height",
 		unit: 'px',
-		yValues: 0.75,
+		yValues: 2,
 		xDefinition: {
-			element: 'main h2',
+			element: document.querySelector('.point75'),
 			property: 'font-size' 
 		}
 	}
