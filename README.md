@@ -1,5 +1,5 @@
 # interpolateCSS - a solution for fluid web design
-This library does not use dependencies (like jQuery).
+This library does not use dependencies.
 
 ## Compatibility
 Modern browsers (Chrome, Firefox, Edge...). Some functionality (observers) will not work on Internet Explorer, library is not tested on it. It may work in a limited amount in IE10+.
