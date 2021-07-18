@@ -22,7 +22,15 @@ main {
 }
 
 #demo > * {
-  margin: 2ch;
+  margin: 2ch 0;
+}
+
+#demo > :nth-child(1) {
+  margin-right: 2ch;
+}
+
+#demo > :nth-child(2) {
+  margin-left: 2ch;
 }
 
 .aspect {
@@ -31,7 +39,7 @@ main {
 }
 
 .aspect1 {
-  width: calc(100% - 30% - 8ch - 1px);
+  flex:auto;
   background: #eac7db;
 }
 
