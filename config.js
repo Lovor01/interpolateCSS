@@ -12,7 +12,7 @@ interpolateCSS([
 		unit: 'px',
 		yValues: 0.75,
 		xDefinition: {
-			element: document.querySelector('main h2'),
+			element: 'main h2',
 			property: 'font-size' 
 		}
 	},
@@ -22,8 +22,28 @@ interpolateCSS([
 		unit: 'px',
 		yValues: 2,
 		xDefinition: {
-			element: document.querySelector('.point75'),
+			element: '.point75',
 			property: 'font-size' 
+		}
+	},
+	{
+		element: '.aspect',
+		property: "height",
+		unit: 'px',
+		yValues: 0.75,
+		xDefinition: {
+			element: 'self',
+			property: 'width' 
+		}
+	},
+	{
+		element: '.aspect1',
+		property: "height",
+		unit: 'px',
+		yValues: 0.25,
+		xDefinition: {
+			element: 'self',
+			property: 'width' 
 		}
 	}
 ])
