@@ -45,5 +45,15 @@ interpolateCSS([
 			element: 'self',
 			property: 'width' 
 		}
+	},
+	{
+		element: '.circle',
+		property: "height",
+		unit: 'px',
+		yValues: 1,
+		xDefinition: {
+			element: 'self',
+			property: 'width' 
+		}
 	}
 ])
