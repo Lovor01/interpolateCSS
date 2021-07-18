@@ -32,7 +32,7 @@ main {
 }
 
 .aspect1 {
-  width: 69.9%;
+  width: calc(100% - 30% - 4ch - 1px);
   background: #eac7db;
 }
 
