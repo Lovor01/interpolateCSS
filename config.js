@@ -37,7 +37,7 @@ interpolateCSS([
 		}
 	},
 	{
-		element: '.aspect',
+		element: '.aspect h3',
 		property: "font-size",
 		unit: 'rem',
 		yValues: [0.9, 1.2],
