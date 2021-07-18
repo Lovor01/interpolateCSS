@@ -5,7 +5,7 @@ This library does not use dependencies.
 Modern browsers (Chrome, Firefox, Edge...). Some functionality (observers) will not work on Internet Explorer, library is not tested on it. It may work in a limited amount in IE10+.
 
 ## Why?
-Some fluid design neccessities like changing font size depending on window width are (still) cumbersome to achieve with plain CSS, while other things are impossible, like changing one property related to changes in other properties. This library aims to mitigate those problems.
+Some fluid design neccessities like changing font size depending on window width are (still) cumbersome to achieve with plain CSS, while other things are impossible, like changing one property related to changes in other properties. This library aims to mitigate those problems. **[Demo](https://lovor01.github.io/interpolateCSS/)**
 
 ## What?
 Interpolation of CSS property from one value to another in relation to change of another CSS property (including window width and height and properties of the same element)
