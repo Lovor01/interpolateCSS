@@ -37,6 +37,13 @@ interpolateCSS([
 		}
 	},
 	{
+		element: '.aspect',
+		property: "font-size",
+		unit: 'rem',
+		yValues: [0.9, 1.2],
+		xBreakpoints: [768, 1600],
+	},
+	{
 		element: '.aspect1',
 		property: "height",
 		unit: 'px',
