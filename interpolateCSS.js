@@ -13,7 +13,7 @@
  * fires interpolateCSSDone event when all interpolations are finished
  * raises warning if some elements in config objects are not valid or do not exist
  *
- * version 1.2.0
+ * version 1.3.0
  *
  *
  * accepts config object with following properties:
@@ -42,8 +42,8 @@ function interpolateCSS(config) {
 	// check for emptyness, and if object is DOM object
 	config.forEach(function(curel, index) {
 
-		function giveWarning() {
-			console.warn('Provided element number ' + index + ' is not DOM element, interpolation will not work on element! \nElement: ' + curel.element )
+		function giveWarning(el) {
+			console.warn('Provided element in object number ' + index + ' is not valid DOM element, or query does not give all valid elements, interpolation will not work on element! \nElement: ' + el )
 		}
 
 		/* function correctCSSpropToCamelCase() {
@@ -67,6 +67,38 @@ function interpolateCSS(config) {
 			}
 		}
 
+		function stringToDOM(selector) {
+			// consider revising so that selector is only variable (no tempEl) for greater speed
+			let tempEl;
+			if (typeof selector === 'string') {
+				tempEl = document.querySelectorAll(selector);
+				tempEl.forEach(function(el) {
+					if (! (el instanceof Element)) {
+						giveWarning();
+						el = undefined;
+					}
+				})
+				// check if returned NodeList has zero length
+				const NodeListLength = tempEl.length;
+				if (NodeListLength === 0) {
+					giveWarning();
+					tempEl = undefined;
+				} else {
+					// set element accordingly if string represents more elements or one
+					if ( NodeListLength === 1 )
+						// single element
+						tempEl = tempEl[0];
+				}
+			} else
+				if (! selector || ! (selector instanceof Element) ) {
+					giveWarning();
+					tempEl = undefined;
+				} else
+					tempEl = selector;
+
+			return tempEl;
+		}
+
 		// mark if yValues is array - do not check typeof many times, query variable
 
 		curel.singleY = ! Array.isArray(curel.yValues);
@@ -76,39 +108,14 @@ function interpolateCSS(config) {
 		}
 
 		// if element is string, find DOM element(s)
-		if (typeof curel.element === 'string') {
-			let tempEl = document.querySelectorAll(curel.element);
-			tempEl.forEach(function(el){
-				if (! (el instanceof Element)) {
-					giveWarning();
-					el = undefined;
-				}
-			})
-			const NodeListLength = tempEl.length;
-			if (NodeListLength === 0) {
-				giveWarning();
-				curel.element = undefined;
-			} else {
-				// set element accordingly if string represents more elements or one
-				if ( NodeListLength === 1 )
-					// single element
-					curel.element = tempEl[0]
-				else
-					// NodeList
-					curel.element = tempEl;
-			}
-		} else
-			if (! curel.element || ! (curel.element instanceof Element) ) {
-				giveWarning();
-				curel.element = undefined;
-			};
+		curel.element = stringToDOM(curel.element);
+
 		if (curel && curel.xDefinition) {
 			if (curel.xDefinition.element === 'self')
 				curel.xDefinition.element = (curel.element instanceof NodeList) ? curel.element[0] : curel.element;
-			if (! curel.xDefinition.element instanceof Element) {
-				console.warn('Provided xDefinition element in element number ' + index + ' is not DOM element, interpolation will not work on element! \nElement: ' + curel.element )
-				curel.element = undefined;
-			}
+			else
+				curel.xDefinition.element = stringToDOM(curel.xDefinition.element);
+
 		}
 
 		// if there is only single y, spread to all breakpoints
