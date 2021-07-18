@@ -19,7 +19,6 @@ main {
 
 #demo {
   display: flex;
-  flex-flow: wrap;
 }
 
 #demo > * {
