@@ -4,7 +4,7 @@
  * Author: Lovro Hrust
  * All Rights Reserved.
  * Use, reproduction, distribution, and modification of this code is subject to the terms and
- * conditions of the MIT license, available at http://www.opensource.org/licenses/mit-license.php
+ * conditions of the Mozilla Public License Version 2.0, included in this library documents on GitHub
  *
  * intended to solve dynamic change of CSS properties, interpolation and relational changes,
  * when one element property changes, change the other accordingly
