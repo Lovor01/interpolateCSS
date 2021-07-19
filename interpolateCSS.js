@@ -45,12 +45,6 @@ function interpolateCSS(config) {
 			console.warn('Provided element in object number ' + index + ' is not valid DOM element, or query does not give all valid elements, interpolation will not work on element! \nElement: ' + el )
 		}
 
-		/* function correctCSSpropToCamelCase() {
-			let dashPos = curel.property.indexOf('-');
-			if (dashPos !== -1)
-				curel.property = curel.property.substring(0, dashPos-1) + curel.property.substring(dashPos+1, dashPos+2).toUpperCase() + curel.property.substring(dashPos+2);
-		} */
-
 		// if yValue is object it has to have at least multiply property
 		function validConfigYValues() {
 			function isValidSingle(el) {
