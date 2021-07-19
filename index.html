@@ -3,6 +3,7 @@
 <html lang="en">
 <head>
   <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
   <title>InterpolateCSS demo</title>
   <meta name="description" content="Demo of interpolateCSS library">
   <meta name="author" content="Lovro Hrust">
@@ -13,16 +14,18 @@
   <h1>Demo example of <span class="scriptname">interpolateCSS</span></h1>
   <h2>Try resizing this window horizontally</h2>
   <main>
-    <h2>Font size of this title changes with respect to window width</h2>
+    <h2>Font size of this title changes with respect to window width, at lower width than 768px it starts decreasing slowly, until 260px</h2>
     <h3 class="point75">Font size of this element is 0.75 times of font size above</h3>
-    <h3 class="announcement-times2">Height of element below is equal to font size of element above multiplied by 2</h3>
-    <div class="box-fontx2">Observe height</div>
+    <div class="box-fontx2">Height of this element is equal to font size of element above multiplied by 3</div>
     <section id="demo">
-      <div class="aspect"><h3>Element with fixed aspect ratio width:height / no padding hacks are necessary - much simpler code</h3></div>
-      <div class="aspect1"><h3>Element with different fixed aspect ratio width:height</h3></div>
+      <div class="aspect"><h3>Element with fixed aspect ratio width:height = 1:0.75<br>No padding hacks are necessary - which results in much simpler code</h3></div>
+      <div class="aspect1"><h3>Different fixed aspect ratio width:height = 1:0.25</h3></div>
     </section>
     <div class="circle"><h3>Circular element with auto height or width is very easy to create</h3></div>
   </main>
+  <div id="paranormal-float">
+    This element's positioning<br>is regulated by window width
+  </div>
   <script src="interpolateCSS.min.js"></script>
   <script src="config.js"></script>
 </body>
