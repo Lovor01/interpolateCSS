@@ -30,7 +30,6 @@
  *
  * interpolateCSSDone event is dispatched when interpolation is finished
  *
- * improved from v1.1.0 - selection on multiple elements, multiple elements can depend on one xDefinition, interpolateCSSDone fires only once upon finish, not on every element
  */
 'use strict';
 function interpolateCSS(config) {
