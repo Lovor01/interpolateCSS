@@ -39,7 +39,7 @@ interpolateCSS([
 	},
 ]);
 ```
-Explanation: this configuration call sets up automatic resize of width of first element in config from 180 to 220 depending on screen width from 768 to 1680. Interpolation works also after screen width of 1680 pixels, while below of 768 width is not set (width is in that case defined by CSS). For second element, height is calculated from its width, multiplied by 0.68. In effect this achieves constant aspect ratio.
+Explanation: this configuration call sets up automatic resize of width of first element in config from 180px to 220px depending on screen width from 768px to 1680px. Interpolation works also after screen width of 1680 pixels, while below of 768 width is not set (width is in that case defined by CSS). For second element, height is calculated from its width, multiplied by 0.68. In effect this achieves constant aspect ratio.
 
 From this example we see that, it is easy to achieve:
 1. interpolating CSS property from one value to another
@@ -61,8 +61,8 @@ However, possibilities are greater than just for those two examples.
   - **property**: source property
   }
   If not specified, default is *width* property of *window*.
-- **extrapolateMin**: extrapolate property above greatest breakpoint
-- **extrapolateMax**: extrapolate property below smallest breakpoint
+- **extrapolateMax**: extrapolate property above greatest breakpoint
+- **extrapolateMin**: extrapolate property below smallest breakpoint
 
 ## Is it performant?
 Yes, library is small and it uses *resize* event of `window` together with `window.requestAnimationFrame` to achieve speed. Some necessary calculations are done once when initializing library and saved in memory for optimal performance. Observers are in plan for future release.
