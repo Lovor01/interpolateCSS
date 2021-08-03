@@ -13,7 +13,7 @@
  * fires interpolateCSSDone event when all interpolations are finished
  * raises warning if some elements in config objects are not valid or do not exist
  *
- * version 1.3.0
+ * version 1.3.2
  *
  *
  * accepts config object with following properties:
@@ -185,25 +185,22 @@ function interpolateCSS(config) {
 			config.forEach(function(configEl) {
 
 				// x is compared with breakpoints
-				// rArray is object of value and unit - a structure. Unit is string
+				// rArray is object of value and unit - in fact a structure. Value should be number, unit is string
 				let x = null, rArray;
-				// prepare yValues function
 
 				// check if xDefinition exists and prepare variables accordingly
 				// this means that y is calculated from x, otherwise it is simple value
 				if (configEl.hasOwnProperty('xDefinition')) {
-					let getCalculatedY;
-					if (typeof configEl.yValues === 'object' )
-						// function to facilitate calculation of y if it is object of multiply, add
-						getCalculatedY = function(x, y) { return x * y.multiply + y.add; };
-					else
-						getCalculatedY = function(x, y) { return x * y }
+					// function calculates x * y if y.multiply or y.add are not defined
+					function getCalculatedY(x, y) {
+						return x * (y.multiply || y) + (y.add || 0);
+					}
 					// rArray is array of value [0] and unit [1]
 					rArray = separateValueAndUnit(
 						window.getComputedStyle(configEl.xDefinition.element)[configEl.xDefinition.property]
 					);
-					// calculate y, yValues_calc spreads yValues on all Breakpoints
-					if (configEl.singleY)
+					// calculate y, depending on if breakpoints are defined, yValues_calc was already spread on all Breakpoints if it was single value
+					if (! configEl.xBreakpoints)
 						configEl.yValues_calc = getCalculatedY(rArray.value, configEl.yValues);
 					else
 						configEl.yValues_calc =  configEl.yValues.map(function(el){
