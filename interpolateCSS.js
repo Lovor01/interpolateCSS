@@ -13,7 +13,7 @@
  * fires interpolateCSSDone event when all interpolations are finished
  * raises warning if some elements in config objects are not valid or do not exist
  *
- * version 1.3.2
+ * version 1.3.3
  *
  *
  * accepts config object with following properties:
@@ -30,6 +30,10 @@
  *
  * interpolateCSSDone event is dispatched when interpolation is finished
  *
+ * 
+ * two methods exist on interpolateCSS:
+ * 	doInterpolations
+ * 	refresh
  */
 'use strict';
 function interpolateCSS(config) {
@@ -37,96 +41,107 @@ function interpolateCSS(config) {
 
 	const evDone = new Event('interpolateCSSDone');
 
-	// validation part, correct things like changing css property style into Javascript style (camelCase without dash)
-	// check for emptyness, and if object is DOM object
-	config.forEach(function(curel, index) {
+	function processConfig() {
+		// validation part, correct things like changing css property style into Javascript style (camelCase without dash)
+		// check for emptyness, and if object is DOM object
 
-		function giveWarning(el) {
-			console.warn('Provided element in object number ' + index + ' is not valid DOM element, or query does not give all valid elements, interpolation will not work on element! \nElement: ' + el )
-		}
+		// clone config
 
-		// if yValue is object it has to have at least multiply property
-		function validConfigYValues() {
-			function isValidSingle(el) {
-				return (typeof el === 'number') || (typeof el === 'object' && el.hasOwnProperty('multiply'));
+		configProcessed = config.map(function(el) { return { ...el } });
+
+		configProcessed.forEach(function(curel, index) {
+
+			function giveWarning(el) {
+				console.warn('Provided element in object number ' + index + ' is not valid DOM element, or query does not give all valid elements, interpolation will not work on element! \nElement: ' + el )
 			}
-			if (curel.singleY)
-				return isValidSingle(curel.yValues);
-			else
-			{
-				let valid = true;
-				curel.yValues.forEach(function(el) { valid = valid && isValidSingle(el) });
-				return valid;
-			}
-		}
 
-		function stringToDOM(selector) {
-			// consider revising so that selector is only variable (no tempEl) for greater speed
-			let tempEl;
-			if (typeof selector === 'string') {
-				tempEl = document.querySelectorAll(selector);
-				tempEl.forEach(function(el) {
-					if (! (el instanceof Element)) {
-						giveWarning();
-						el = undefined;
-					}
-				})
-				// check if returned NodeList has zero length
-				const NodeListLength = tempEl.length;
-				if (NodeListLength === 0) {
-					giveWarning();
-					tempEl = undefined;
-				} else {
-					// set element accordingly if string represents more elements or one
-					if ( NodeListLength === 1 )
-						// single element
-						tempEl = tempEl[0];
+			// if yValue is object it has to have at least multiply property
+			function validConfigYValues() {
+				function isValidSingle(el) {
+					return (typeof el === 'number') || (typeof el === 'object' && el.hasOwnProperty('multiply'));
 				}
-			} else
-				if (! selector || ! (selector instanceof Element) ) {
-					giveWarning();
-					tempEl = undefined;
+				if (curel.singleY)
+					return isValidSingle(curel.yValues);
+				else
+				{
+					let valid = true;
+					curel.yValues.forEach(function(el) { valid = valid && isValidSingle(el) });
+					return valid;
+				}
+			}
+
+			function stringToDOM(selector) {
+				// consider revising so that selector is only variable (no tempEl) for greater speed
+				let tempEl;
+				if (typeof selector === 'string') {
+					tempEl = document.querySelectorAll(selector);
+					tempEl.forEach(function(el) {
+						if (! (el instanceof Element)) {
+							giveWarning();
+							el = undefined;
+						}
+					})
+					// check if returned NodeList has zero length
+					const NodeListLength = tempEl.length;
+					if (NodeListLength === 0) {
+						giveWarning();
+						tempEl = undefined;
+					} else {
+						// set element accordingly if string represents more elements or one
+						if ( NodeListLength === 1 )
+							// single element
+							tempEl = tempEl[0];
+					}
 				} else
-					tempEl = selector;
+					if (! selector || ! (selector instanceof Element) ) {
+						giveWarning();
+						tempEl = undefined;
+					} else
+						tempEl = selector;
 
-			return tempEl;
-		}
+				return tempEl;
+			}
 
-		// mark if yValues is array - do not check typeof many times, query variable
+			// mark if yValues is array - do not check typeof many times, query variable
 
-		curel.singleY = ! Array.isArray(curel.yValues);
-		if (! validConfigYValues()) {
-			console.error('Given yValues is misconfigured; not number nor Array or property multiply does not exists! Stopping.');
-			return;
-		}
+			curel.singleY = ! Array.isArray(curel.yValues);
+			if (! validConfigYValues()) {
+				console.error('Given yValues is misconfigured; not number nor Array or property multiply does not exists! Stopping.');
+				return;
+			}
 
-		// if element is string, find DOM element(s)
-		curel.element = stringToDOM(curel.element);
+			// if element is string, find DOM element(s)
+			curel.element = stringToDOM(curel.element);
 
-		if (curel && curel.xDefinition) {
-			if (curel.xDefinition.element === 'self')
-				curel.xDefinition.element = (curel.element instanceof NodeList) ? curel.element[0] : curel.element;
-			else
-				curel.xDefinition.element = stringToDOM(curel.xDefinition.element);
+			if (curel && curel.xDefinition) {
+				if (curel.xDefinition.element === 'self')
+					curel.xDefinition.element = (curel.element instanceof NodeList) ? curel.element[0] : curel.element;
+				else
+					curel.xDefinition.element = stringToDOM(curel.xDefinition.element);
 
-		}
+			}
 
-		// if there is only single y, spread to all breakpoints
-		if (curel.singleY && curel.xBreakpoints)
-			curel.yValues = curel.xBreakpoints.map(function() {return curel.yValues} )
+			// if there is only single y, spread to all breakpoints
+			if (curel.singleY && curel.xBreakpoints)
+				curel.yValues = curel.xBreakpoints.map(function() {return curel.yValues} )
+
+		});
+		//  remove empty elements
+		configProcessed = configProcessed.filter(function(el) {
+			return Boolean(el.element);
+		})
+		// end of validation
+		// *****************
+		
+	}
 
 
-	});
+	/**
+	 * @todo add check if xBreakpoints array is sorted 
+	 * */
 
-	//  remove empty elements
-	config = config.filter(function(el) {
-		return Boolean(el.element);
-	})
-	// end of validation
-	// *****************
-
-
-	/* TODO: add check if xBreakpoints array is sorted */
+	// processConfig sets configProcessed at the end
+	let configProcessed;
 
 	//  if empty, there is nothing to do
 	if (config.length === 0)
@@ -137,15 +152,24 @@ function interpolateCSS(config) {
 
 
 	interpolateCSS.doInterpolations = doInterpolations;
+	interpolateCSS.refresh = function() {
+		processConfig();
+		doInterpolations();
+	} 
 
-	doInterpolations();
+	interpolateCSS.refresh();
 
 	/**
 	 * Callback that does calculations and interpolation
 	 */
 	function doInterpolations() {
 		// set requestAnimationFrame to throttle event handler
+		let working = false;
 		window.requestAnimationFrame(function() {
+
+			if (working)
+				return;
+			working = true;
 
 			function setCSSProp(element, property, callback) {
 				if (element instanceof NodeList)
@@ -153,7 +177,6 @@ function interpolateCSS(config) {
 				else
 					callback(element, property);
 			}
-
 
 			/**
 			 * subfunction to interpolate and write css style
@@ -182,7 +205,7 @@ function interpolateCSS(config) {
 
 			// configEl is array element of config, array of objects
 			// main loop iterating all settings
-			config.forEach(function(configEl) {
+			configProcessed.forEach(function(configEl) {
 
 				// x is compared with breakpoints
 				// rArray is object of value and unit - in fact a structure. Value should be number, unit is string
@@ -252,7 +275,7 @@ function interpolateCSS(config) {
 				}
 			});
 			window.dispatchEvent(evDone);
-
+			working = false;
 		});
 	}
 }
