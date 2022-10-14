@@ -13,7 +13,7 @@
  * fires interpolateCSSDone event when all interpolations are finished
  * raises warning if some elements in config objects are not valid or do not exist
  *
- * version 1.3.3
+ * version 1.3.4
  *
  *
  * accepts config object with following properties:
@@ -30,10 +30,11 @@
  *
  * interpolateCSSDone event is dispatched when interpolation is finished
  *
- * 
+ *
  * two methods exist on interpolateCSS:
  * 	doInterpolations
  * 	refresh
+ *
  */
 'use strict';
 function interpolateCSS(config) {
@@ -132,12 +133,12 @@ function interpolateCSS(config) {
 		})
 		// end of validation
 		// *****************
-		
+
 	}
 
 
 	/**
-	 * @todo add check if xBreakpoints array is sorted 
+	 * @todo add check if xBreakpoints array is sorted
 	 * */
 
 	// processConfig sets configProcessed at the end
@@ -148,14 +149,17 @@ function interpolateCSS(config) {
 		return;
 
 	// set interpolation on resize and run initially
-	window.addEventListener('resize', doInterpolations);
+	if (! window.interpolateCSSListenerSet) {
+		window.addEventListener('resize', doInterpolations);
+		window.interpolateCSSListenerSet = true;
+	}
 
 
 	interpolateCSS.doInterpolations = doInterpolations;
 	interpolateCSS.refresh = function() {
 		processConfig();
 		doInterpolations();
-	} 
+	}
 
 	interpolateCSS.refresh();
 
